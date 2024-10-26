@@ -10,11 +10,10 @@
 - [Composer](https://getcomposer.org/)
 - [Adminer](https://www.adminer.org/)
 - [NVM](https://github.com/nvm-sh/nvm)
-- [Node.js](https://nodejs.org/) (LTS)
+- [Node.js](https://nodejs.org/) (LTS) - WHY
 - [Xdebug](https://xdebug.org)
 - [WP-CLI](https://wp-cli.org/)
 - Git
-- SVN
 - [MailHog](https://github.com/mailhog/MailHog)
 
 ## Install

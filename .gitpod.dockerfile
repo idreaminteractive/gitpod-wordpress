@@ -18,19 +18,22 @@ RUN git clone https://github.com/luizbills/gitpod-wordpress $HOME/gitpod-wordpre
 ### MailHog ###
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
-RUN go get github.com/mailhog/MailHog && \
-    go get github.com/mailhog/mhsendmail && \
+RUN go install github.com/mailhog/MailHog@latest && \
+    go install github.com/mailhog/mhsendmail@latest && \
     cp $GOPATH/bin/MailHog /usr/local/bin/mailhog && \
     cp $GOPATH/bin/mhsendmail /usr/local/bin/mhsendmail && \
     ln $GOPATH/bin/mhsendmail /usr/sbin/sendmail && \
-    ln $GOPATH/bin/mhsendmail /usr/bin/mail &&\
+    ln $GOPATH/bin/mhsendmail /usr/bin/mail 
     ### Apache ###
-    apt-get -y install apache2 && \
-    chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 && \
-    echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf && \
-    echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars && \
+
+# RUN apt-get purge apache2*
+CMD ["sleep", "infinity"]
+RUN apt-get -y install apache2 --option=Dpkg::Options::=--force-confdef
+RUN chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 
+RUN echo "include /workspace/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf 
+RUN echo ". /workspace/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars 
     ### PHP ###
-    apt-get -qy purge php* && \
+RUN apt-get -qy purge php* && \
     add-apt-repository ppa:ondrej/php && \
     apt-get update && \
     apt-get -qy install \
