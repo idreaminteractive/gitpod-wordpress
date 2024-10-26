@@ -10,7 +10,7 @@ ENV APACHE_DOCROOT="public_html"
 ### Setups, Node, NPM ###
 USER gitpod
 ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
-RUN git clone https://github.com/luizbills/gitpod-wordpress $HOME/gitpod-wordpress && \
+RUN git clone https://github.com/idreaminteractive/gitpod-wordpress $HOME/gitpod-wordpress && \
     cat $HOME/gitpod-wordpress/conf/.bashrc.sh >> $HOME/.bashrc && \
     . $HOME/.bashrc && \
     bash -c ". .nvm/nvm.sh && nvm install --lts"
@@ -28,10 +28,10 @@ RUN go install github.com/mailhog/MailHog@latest && \
 
 # RUN apt-get purge apache2*
 CMD ["sleep", "infinity"]
-RUN apt-get -y install apache2 --option=Dpkg::Options::=--force-confdef
+# RUN apt-get -y install apache2 --option=Dpkg::Options::=--force-confdef
 RUN chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 
-RUN echo "include /workspace/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf 
-RUN echo ". /workspace/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars 
+RUN echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf 
+RUN echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars 
     ### PHP ###
 RUN apt-get -qy purge php* && \
     add-apt-repository ppa:ondrej/php && \
