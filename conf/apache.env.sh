@@ -1,4 +1,4 @@
-# export APACHE_SERVER_NAME=$(gp url 8080 | sed -e s/https:\\/\\/// | sed -e s/\\///)
+export APACHE_SERVER_NAME=$(gp url 8080 | sed -e s/https:\\/\\/// | sed -e s/\\///)
 export APACHE_RUN_USER="gitpod"
 export APACHE_RUN_GROUP="gitpod"
 export APACHE_RUN_DIR=/var/run/apache2
