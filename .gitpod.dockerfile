@@ -35,24 +35,24 @@ RUN echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars
     ### PHP ###
 RUN apt-get -qy purge php* && \
     add-apt-repository ppa:ondrej/php && \
-    apt-get update && \
-    apt-get -qy install \
-        libapache2-mod-php \
-        php${PHP_VERSION} \
-        php${PHP_VERSION}-common \
-        php${PHP_VERSION}-cli \
-        php${PHP_VERSION}-mbstring \
-        php${PHP_VERSION}-curl \
-        php${PHP_VERSION}-gd \
-        php${PHP_VERSION}-intl \
-        php${PHP_VERSION}-mysql \
-        php${PHP_VERSION}-xml \
-        php${PHP_VERSION}-json \
-        php${PHP_VERSION}-zip \
-        php${PHP_VERSION}-soap \
-        php${PHP_VERSION}-bcmath \
-        php${PHP_VERSION}-opcache \
-        php-xdebug && \
+    apt-get update 
+#    apt-get -qy install \
+#        libapache2-mod-php \
+#        php${PHP_VERSION} \
+#        php${PHP_VERSION}-common \
+#        php${PHP_VERSION}-cli \
+#        php${PHP_VERSION}-mbstring \
+#        php${PHP_VERSION}-curl \
+#        php${PHP_VERSION}-gd \
+#        php${PHP_VERSION}-intl \
+#        php${PHP_VERSION}-mysql \
+#        php${PHP_VERSION}-xml \
+#        php${PHP_VERSION}-json \
+#        php${PHP_VERSION}-zip \
+#        php${PHP_VERSION}-soap \
+#        php${PHP_VERSION}-bcmath \
+#        php${PHP_VERSION}-opcache \
+RUN apt-get -qy install  php-xdebug && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* && \
     update-alternatives --set php /usr/bin/php${PHP_VERSION} && \
     cat /home/gitpod/gitpod-wordpress/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini && \
